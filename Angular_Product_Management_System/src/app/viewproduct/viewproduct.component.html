@@ -1,0 +1,23 @@
+<div>
+
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+        <th>S.No</th>
+        <th>Employee Id</th>
+        <th>Employee Name</th>
+        <th>Salary</th>
+      </tr>
+
+     <tr *ngFor="let product of arr | async;let i=index">
+       <td>{{i}}</td>
+       <td>{{product.productId}}</td>
+       <td>{{product.productName}}</td>
+       <td>{{product.price}}</td>
+       <td><button class="btn btn-primary">Delete</button></td>
+     </tr>
+    </tbody>
+
+  </table>
+
+</div>
