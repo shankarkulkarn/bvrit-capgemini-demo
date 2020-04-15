@@ -12,6 +12,7 @@ import com.capg.moviecatelog.exception.MovieException;
 import com.capg.moviecatelog.model.CatelogItem;
 import com.capg.moviecatelog.model.MovieInfo;
 import com.capg.moviecatelog.model.MovieRating;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 @RestController
@@ -22,7 +23,7 @@ public class MovieCatelogController {
 	
 	
 	@GetMapping("/movie/{id}")
-	//@HystrixCommand(fallbackMethod="fallBackMovieCatelogItem")
+	@HystrixCommand(fallbackMethod="fallBackMovieCatelogItem")
 	public ResponseEntity<CatelogItem> getMovieCatelogItem(@PathVariable int id) throws MovieException {
 
 	

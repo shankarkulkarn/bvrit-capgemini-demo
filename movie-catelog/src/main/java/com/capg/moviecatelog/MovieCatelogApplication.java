@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-//@EnableCircuitBreaker
+@EnableCircuitBreaker
 //@EnableFeignClients(basePackages = {"com.capg.moviecatelog.controller"})
 public class MovieCatelogApplication {
 
