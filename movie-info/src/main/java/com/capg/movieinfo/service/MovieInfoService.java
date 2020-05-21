@@ -20,6 +20,11 @@ public class MovieInfoService {
 	@Autowired
 	MovieInfoDao  movieInfoDao;
 
+	public List<MovieInfo> getMovie() throws MovieException {
+		
+		return movieInfoDao.findAll();
+	}
+	
 	public MovieInfo getMovieById(int id) throws MovieException {
 		//return movies.stream().filter(m->m.getMovieId()==id).findFirst().orElse(null);
 		if(!movieInfoDao.existsById(id))

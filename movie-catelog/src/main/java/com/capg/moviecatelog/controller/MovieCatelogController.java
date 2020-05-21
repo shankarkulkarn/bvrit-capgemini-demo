@@ -1,5 +1,7 @@
 package com.capg.moviecatelog.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.capg.moviecatelog.exception.MovieException;
 import com.capg.moviecatelog.model.CatelogItem;
+import com.capg.moviecatelog.model.MovieDetail;
 import com.capg.moviecatelog.model.MovieInfo;
 import com.capg.moviecatelog.model.MovieRating;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -21,17 +24,27 @@ public class MovieCatelogController {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	@GetMapping("/movie")
+	public ResponseEntity<List<MovieInfo>>  getMovie()
+	{
+		ResponseEntity<MovieDetail> md = restTemplate.getForEntity("http://movie-info-service/movieinfo",MovieDetail.class);
+		List<MovieInfo> list = md.getBody().getList();
+		
+		ResponseEntity<List<MovieInfo>>  re= new ResponseEntity<>(list,HttpStatus.OK);
+		return re;
+	}
 	
 	@GetMapping("/movie/{id}")
 	@HystrixCommand(fallbackMethod="fallBackMovieCatelogItem")
 	public ResponseEntity<CatelogItem> getMovieCatelogItem(@PathVariable int id) throws MovieException {
 
 	
+	
 	ResponseEntity<MovieRating> ratingEntity=restTemplate.getForEntity("http://movie-rating-service/rating/"+id, MovieRating.class);
 
    ResponseEntity<MovieInfo> infoEntity=restTemplate.getForEntity("http://movie-info-service/movieinfo/"+id, MovieInfo.class);
 		
-		
+	
 		
    if(infoEntity.getStatusCode()==HttpStatus.NOT_FOUND)
 	{
@@ -60,7 +73,7 @@ public class MovieCatelogController {
 		  
 		ResponseEntity<CatelogItem> catelogEntity;
 		CatelogItem item;
-		item=new CatelogItem(id," MOVIE INFO SERVICE IS DOWN ","",0.0);
+		item=new CatelogItem(id," MOVIE SERVICE IS DOWN ","",0.0);
 			
 			catelogEntity=new ResponseEntity<>(item,HttpStatus.NOT_FOUND);
 			return catelogEntity;

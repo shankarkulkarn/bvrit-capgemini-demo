@@ -26,6 +26,7 @@ public class Employee {
 	@Column(name="esal")
 	private double salary;
 	
+	
 	@ManyToOne
 	@JoinColumn(name="deptid")
 	private Department  department;
@@ -62,6 +63,11 @@ public class Employee {
 		this.department = department;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", salary=" + salary
+				+ ", department=" + department + "]";
+	}
+
 	
 }

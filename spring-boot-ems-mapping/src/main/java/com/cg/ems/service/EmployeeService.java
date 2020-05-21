@@ -15,4 +15,6 @@ public interface EmployeeService {
 	public List<Employee>  findAllEmployees() throws EmployeeException;
 	
 	public Employee deleteEmployeeById(int employeeId) throws EmployeeException;
+	public Employee updateEmployee(Employee  employee) throws EmployeeException;
+	
 }

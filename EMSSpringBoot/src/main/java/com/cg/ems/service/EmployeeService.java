@@ -12,6 +12,7 @@ public interface EmployeeService {
 	public Employee createEmployee(Employee  employee);
 	
 	public int  countEmployees();
+	
 	public Employee updateEmployee(Employee  employee) 
 			throws EmployeeException;
 	

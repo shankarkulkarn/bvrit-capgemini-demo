@@ -55,4 +55,20 @@ Employee  emp =null;
 		return employeeDao.findByDepartmentId(departmentId);
 		
 	}
+	@Override
+	public Employee updateEmployee(Employee employee) throws EmployeeException{
+		
+Employee  emp =null;
+		
+		if( employeeDao.existsById(employee.getEmployeeId()))
+		{
+			 emp=employeeDao.saveAndFlush(employee);
+			 System.out.println(emp);
+		}
+		else
+		{
+			throw new EmployeeException(" ID NOT FOUND ");
+		}
+		return emp ;
+	}
 }
